@@ -50,27 +50,39 @@ button_val = [
     "^", "π", "log"
 ]
 
-def append_calc(input):
-    current = calc_entry.get()
-    calc_entry.delete(0, tk.END)
-    calc_entry.insert(0, current + input)
-
-def validate(input):
-    pass
-
-def blocker(event):
+def append_calc(btn_in):
     text = calc_entry.get()
-    char = event.char.lower()
-    
-    blocked = s.ascii_letters
-    if event.char == "l":
+    calc_entry.delete(0, tk.END)
+    calc_entry.insert(0, text + btn_in)
 
-    if event.char in blocked:
+def backspace(event):
+    text = calc_entry.get()
+    calc_entry.delete(0, tk.END)
+    calc_entry.insert(0, text[:-1])
+    return "break"
+
+
+def processor(event):
+    btn_in = calc_entry.get()
+    allowed = "1234567890.^*()-=+lpx"
+    abbv = {"l": "log", "/": "÷", "x": "×","*": "×", "p": "π"}
+
+    if event.char not in allowed:
+        return "break"
+    
+    if not l.validate(btn_in, event.char):
+        return "break"
+
+    if event.char in abbv:
+        calc_entry.delete(0, tk.END)
+        calc_entry.insert(0, btn_in + abbv[event.char])
         return "break"
 
 calc_entry = ctk.CTkEntry(calculator, placeholder_text="0", width=578, height=100)
 calc_entry.place(relx=0.5, rely=0.25, anchor="center")
-calc_entry.bind("<Key>", blocker)
+calc_entry.bind("<Key>", processor)
+calc_entry.bind("<Return>", processor)
+calc_entry.bind("<BackSpace>", backspace)
 
 for i in range(len(button_val)):
     btn = ctk.CTkButton(calculator, text=f"{button_val[i]}", width=75, height=75, command=lambda val=button_val[i]: append_calc(val))
