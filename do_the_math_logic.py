@@ -19,7 +19,7 @@ def validate(full, new):
     if new in ")" and full[-1] in "(+x*/^-":
         return False
     
-    # - |Rejects right parenthesis after incompatible| - #
+    # - |Rejects right parenthesis after incompatible| - # 
     if new in "." and full[-1] in ".":
 
     
