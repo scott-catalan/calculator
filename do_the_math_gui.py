@@ -52,8 +52,8 @@ button_val = [
 
 def append_calc(user_input):
     text = calc_entry.get()
-    calc_entry.delete(0, tk.END)
-    calc_entry.insert(0, text + user_input)
+    if l.live_validate(text, user_input):
+            calc_entry.insert(tk.END, user_input)
 
 def backspace(event):
     text = calc_entry.get()
@@ -65,9 +65,9 @@ def backspace(event):
 def processor(event):
     user_input = calc_entry.get()
     allowed = "1234567890.^/*()-+lpx"
-    abbv = {"l": "log", "/": "÷", "x": "×","*": "×", "p": "π"}
+    abbv = {"l": "log(", "/": "÷", "x": "×","*": "×", "p": "π"}
 
-    if event.char not in allowed:
+    if not event.char or event.char not in allowed:
         return "break"
     
     mapped_char = abbv.get(event.char, event.char)
@@ -83,7 +83,7 @@ def processor(event):
 calc_entry = ctk.CTkEntry(calculator, placeholder_text="0", width=578, height=100)
 calc_entry.place(relx=0.5, rely=0.25, anchor="center")
 calc_entry.bind("<Key>", processor)
-calc_entry.bind("<Return>", processor) #Note - make this trigger parse()
+calc_entry.bind("<Return>", processor) #Note - make this trigger calculate()
 calc_entry.bind("<BackSpace>", backspace)
 
 for i in range(len(button_val)):
