@@ -6,6 +6,7 @@ import do_the_math_logic as l
 import customtkinter as ctk
 import tkinter as tk
 import string as s
+import time as t
 
 #----------------------|Themes|----------------------#
 # Note - include a button that swaps between light mode and dark mode
@@ -54,14 +55,28 @@ def append_calc(user_input):
     text = calc_entry.get()
     if l.live_validate(text, user_input):
             calc_entry.insert(tk.END, user_input)
-
 def backspace(event):
     text = calc_entry.get()
     calc_entry.delete(0, tk.END)
     calc_entry.insert(0, text[:-1])
     return "break"
-
-
+def flash_error():
+    original_color = calc_entry.cget("border_color")
+    calc_entry.configure(border_color="red")
+    app.after(200, lambda: calc_entry.configure(border_color=original_color))
+def trigger_calculate(event=None):
+    text = calc_entry.get()
+    
+    if l.validate(text):
+        result = l.calculate(text)
+        if result is not False:
+            calc_entry.delete(0, tk.END)
+            calc_entry.insert(0, "{:g}".format(float(result)))
+        else:
+            flash_error()
+    else:
+        flash_error()
+    return "break"
 def processor(event):
     user_input = calc_entry.get()
     allowed = "1234567890.^/*()-+lpx"
@@ -83,11 +98,19 @@ def processor(event):
 calc_entry = ctk.CTkEntry(calculator, placeholder_text="0", width=578, height=100)
 calc_entry.place(relx=0.5, rely=0.25, anchor="center")
 calc_entry.bind("<Key>", processor)
-calc_entry.bind("<Return>", processor) #Note - make this trigger calculate()
+calc_entry.bind("<Return>", trigger_calculate) #Note - make this trigger calculate()
 calc_entry.bind("<BackSpace>", backspace)
 
 for i in range(len(button_val)):
-    btn = ctk.CTkButton(calculator, text=f"{button_val[i]}", width=75, height=75, command=lambda val=button_val[i]: append_calc(val))
+    val = button_val[i]
+    if val == "=":
+        # We use a lambda or direct reference to trigger the math
+        cmd = lambda: trigger_calculate()
+    else:
+        # Standard buttons use your existing append logic
+        cmd = lambda v=val: append_calc(v)
+
+    btn = ctk.CTkButton(calculator, text=f"{button_val[i]}", width=75, height=75, command=cmd)
     btn.place(relx=(int(i/3)*0.14)+0.08, rely=(i%3*0.19)+0.51, anchor="center")
 
 tabs = ctk.CTkSegmentedButton(calculator, values=["Calculator", "Conversions"])

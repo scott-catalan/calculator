@@ -4,9 +4,22 @@
 
 #Note - when parsing parenthesis, put them in a nested list, and create a preemptive check for that which solves it before putting it the equation
 from sympy import sympify, pi, log
+import string as s
 
 def calculate(full):
-    pass
+    replace = {
+        "×": "*",
+        "÷": "/",
+        "π": "pi",
+        "^": "**"
+    }
+
+    full = full.translate(str.maketrans(replace))
+    try:
+        return sympify(full).evalf()
+    except Exception:
+        return False
+
 
 def validate(full):
     if full == "":
@@ -72,11 +85,13 @@ def live_validate(full, new):
         # - |Rejects incompatible right parenthesis| - #
         if new in ")" and last in "(+×÷ ^-":
             return False
-
-        # - |Rejects unmatched right parenthesis| - #
         if new == ")":
             if full.count("(") <= full.count(")"):
                 return False
+            
+        # - |Rejects incompatible left parenthesis| - #
+        if new in "(" and last in ".":
+            return False
         
         # - |Rejects incompatible decimals| - # 
         dec_check = False
