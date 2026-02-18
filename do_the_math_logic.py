@@ -6,8 +6,7 @@
 from sympy import sympify, pi, log
 
 def calculate(full):
-    for i in full:
-        if i == "l"
+    pass
 
 def validate(full):
     if full == "":
