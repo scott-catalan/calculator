@@ -23,6 +23,7 @@ try:
     ctk.set_default_color_theme(f"{themes_folder}/{current_theme}.json")
 except:
     ctk.set_default_color_theme("blue")
+    
 #----------------------|App|----------------------#
 
 app = ctk.CTk()
