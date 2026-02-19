@@ -33,7 +33,7 @@ app.resizable(False, False)
 screens = {}
 
 title_font = ctk.CTkFont(family="Cynosure Straight", size=40, weight="bold")
-button_font = ctk.CTkFont(family="HPSIMPLIFIED", size=25, weight="bold")
+button_font = ctk.CTkFont(family="HPSIMPLIFIED", size=20, weight="bold")
 entry_font = ctk.CTkFont(family="HPSIMPLIFIED", size=30, weight="bold")
 dropdown_font = ctk.CTkFont(family="HPSIMPLIFIED", size=15, weight="bold")
 
@@ -119,7 +119,7 @@ def build_ui(active_theme=None):
             return "break"
 
     calc_entry = ctk.CTkEntry(calculator, placeholder_text="0", font=entry_font, width=578, height=100)
-    calc_entry.place(relx=0.5, rely=0.275, anchor="center")
+    calc_entry.place(relx=0.5, rely=0.26, anchor="center")
     calc_entry.bind("<Key>", processor)
     calc_entry.bind("<Return>", trigger_calculate)
     calc_entry.bind("<BackSpace>", backspace)

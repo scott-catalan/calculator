@@ -24,14 +24,14 @@
   "CTkLabel": {
     "corner_radius": 0,
     "fg_color": "transparent",
-    "text_color": ["#000000", "#e6e6e6"]
+    "text_color": ["#000000", "#ff6600"]
   },
   "CTkEntry": {
     "corner_radius": 0,
     "border_width": 2,
     "fg_color": ["#1a1a1a", "#262626"],
-    "border_color": ["#000000", "#666666"],
-    "text_color": ["#ffcc00", "#e6e6e6"],
+    "border_color": ["#000000", "#ff6600"],
+    "text_color": ["#ffcc00", "#ff6600"],
     "placeholder_text_color": ["#666666", "#737373"]
   },
   "CTkCheckBox": {
