@@ -136,7 +136,7 @@
     "text_color": ["#01579b", "#a8e6ff"]
   },
   "CTkFont": {
-    "macOS": {"family": "SF Pro Display", "size": 13, "weight": "normal"},
+    "macOS": {"family": "Consolas", "size": 13, "weight": "normal"},
     "Windows": {"family": "Segoe UI", "size": 13, "weight": "normal"},
     "Linux": {"family": "Ubuntu", "size": 13, "weight": "normal"}
   }

@@ -2,7 +2,6 @@
 # Project Creation Date: 9:18:18 PM, 2/15/2026
 '''
 
-#Note - when parsing parenthesis, put them in a nested list, and create a preemptive check for that which solves it before putting it the equation
 from sympy import sympify, pi, log
 import string as s
 
@@ -19,8 +18,6 @@ def calculate(full):
         return sympify(full).evalf()
     except Exception:
         return False
-
-
 def validate(full):
     if full == "":
         return False
@@ -38,19 +35,17 @@ def validate(full):
         return False
 
     return True
-
-
 def live_validate(full, new):
     if full == "":
         # - |Rejects invalid first char| - #
-        if new not in "1234567890.(-πl":
+        if new not in "1234567890.(-πl" and new != "log(":
             return False
     else:
         last = full[-1]
 
         # - |Rejects implicit| - #
-        if full[-1] in "0123456789π)":
-            if new in "π(l" or new == "log(":
+        if last in "0123456789π)":
+            if new == "l" or new == "log(":
                 return False
 
         # - |Rejects incompatible pi| - #
@@ -63,7 +58,7 @@ def live_validate(full, new):
             return False
         
         # - |Rejects incompatible log| - #
-        if new == "log(":
+        if new == "log(" or new == "l":
             if last in "0123456789.π)":
                 return False
         if last == "(" or full.endswith("log("):
