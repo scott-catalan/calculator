@@ -6,13 +6,22 @@ import do_the_math_logic as l
 import customtkinter as ctk
 import tkinter as tk
 import os as o
+import sys
 from tkinter import font
 
 #----------------------|Visuals|----------------------#
 
 ctk.set_appearance_mode("dark")
 
-themes_folder = o.path.join(o.path.dirname(__file__), "themes")
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = o.path.abspath(".")
+    return o.path.join(base_path, relative_path)
+
+themes_folder = resource_path("themes")
+
 if o.path.exists(themes_folder):
     theme_files = [f.replace(".json", "").capitalize() for f in o.listdir(themes_folder) if f.endswith(".json")]
 else:
@@ -37,6 +46,11 @@ title_font = ctk.CTkFont(family="Cynosure Straight", size=40, weight="bold")
 button_font = ctk.CTkFont(family="HPSIMPLIFIED", size=20, weight="bold")
 entry_font = ctk.CTkFont(family="HPSIMPLIFIED", size=30, weight="bold")
 dropdown_font = ctk.CTkFont(family="HPSIMPLIFIED", size=15, weight="bold")
+
+icon_path = resource_path("icon/your_icon.ico")
+
+if os.path.exists(icon_path):
+    root.iconbitmap(icon_path)
 
 #----------------------|Build UI|----------------------#
 
