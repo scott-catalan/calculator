@@ -49,8 +49,8 @@ dropdown_font = ctk.CTkFont(family="HPSIMPLIFIED", size=15, weight="bold")
 
 icon_path = resource_path("icon/your_icon.ico")
 
-if os.path.exists(icon_path):
-    root.iconbitmap(icon_path)
+if o.path.exists(icon_path):
+    app.iconbitmap(icon_path)
 
 #----------------------|Build UI|----------------------#
 
